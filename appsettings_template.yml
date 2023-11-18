@@ -18,17 +18,22 @@ Serilog:
         rollingInterval: Day
         restrictedToMinimumLevel: Warning
 MqttInfo:
-  Server: localhost # The IP address or DNS name of your server goes here.
+  Server: localhost # The IP address or DNS name of your MQTT server goes here.
   Devices: # This section is required.
-      # The name of your device. Used in Telegram messages by the bot.
-    - DeviceName: KitchenLight
-      # The topic of your device.
+      # The display name for your device. Used in Telegram messages by the bot.
+    - Name: Kitchen light
+      # The MQTT topic of your device.
       Topic: kitchenlight
       TelegramCommands:
         # The command for the bot to toggle the power of this device. Must be declared using BotFather.
         TogglePower: /kitchenlight_toggle
         # The command to show the status of the device, whether it's turned on or off. Must be declared using BotFather.
         Status: /kitchenlight_status
+    - Name: Bedroom fan
+      Topic: bedroomfan
+      TelegramCommands:
+        TogglePower: /bedroomfan_toggle
+        Status: /bedroomfan_status
 Telegram:
   BotToken: # A unique Telegram bot identifier provided by the BotFather.
   AllowedIds: # The IDs of users that are permitted to use the bot. This section is required.

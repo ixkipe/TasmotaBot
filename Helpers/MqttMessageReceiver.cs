@@ -6,8 +6,18 @@ using Serilog;
 
 namespace MiscellaneousGibs.TasmotaBot.Helpers;
 
-#warning Missing docs
+/// <summary>
+/// Contains helper methods that receive messages over MQTT.
+/// </summary>
 public static class MqttMessageReceiver {
+  /// <summary>
+  /// Receive response over MQTT, send the result to the Telegram chat, disconnect and dispose of the MQTT client.
+  /// </summary>
+  /// <param name="mqttClient">The MQTT client associated with the current command and the requested state.</param>
+  /// <param name="messageParams">Telegram bot in use, an <c>Update</c> which is being handled and app configuration.</param>
+  /// <param name="deviceTopic">The topic of the device.</param>
+  /// <returns></returns>
+  #warning Must come up with another "MessageParams" type that will contain the device topic
   public static async Task ReceiveMessageAndDisconnectAsync(this IMqttClient mqttClient, BotMessageParams messageParams, string deviceTopic) {
     await mqttClient.SubscribeAsync(
       new[] { string.Format(TasmotaSubscriptions.StateResultTopic, deviceTopic) }.GenerateSubscribeOptions(),
@@ -15,7 +25,7 @@ public static class MqttMessageReceiver {
     );
     
     mqttClient.ApplicationMessageReceivedAsync += e => {
-      // create mapping method
+      #warning Create mapping method
       var messageParamsWithArgs = new BotMessageParamsWithArgs(
         BotClient: messageParams.BotClient,
         Update: messageParams.Update,
@@ -23,9 +33,12 @@ public static class MqttMessageReceiver {
         PowerStatus: e.ApplicationMessage.ConvertPayloadToString()
       );
 
+      // send message to the user containing the current power state
       messageParamsWithArgs.SendResultMessage().Wait();
 
+      // once the message has been sent, disconnect and dispose of the client
       mqttClient.DisconnectAsync().Wait();
+      mqttClient.Dispose();
 
       return Task.CompletedTask;
     };

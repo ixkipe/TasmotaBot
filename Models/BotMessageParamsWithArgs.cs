@@ -3,5 +3,11 @@ using Telegram.Bot.Types;
 
 namespace MiscellaneousGibs.TasmotaBot.Models;
 
-#warning Missing docs
+/// <summary>
+/// A parameter type which contains the instance of a Telegram bot, an <c>Update</c> which is currently being handled, application configuration, and the current power state of the device.
+/// </summary>
+/// <param name="BotClient">The Telegram bot.</param>
+/// <param name="Update">The chat update.</param>
+/// <param name="Config">App configuration.</param>
+/// <param name="PowerStatus">The power state of the device.</param>
 public record BotMessageParamsWithArgs(ITelegramBotClient BotClient, Update Update, IConfiguration Config, string PowerStatus) : BotMessageParams(BotClient, Update, Config);

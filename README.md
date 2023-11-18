@@ -1,0 +1,1 @@
+# TasmotaBot - a Telegram Bot for managing Tasmota devices over MQTT
