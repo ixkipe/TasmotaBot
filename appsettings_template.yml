@@ -1,0 +1,36 @@
+# Don't forget to rename this file to appsettings.yml once you've written the configuration.
+
+# Default logging configuration.
+Serilog:
+  Using:
+    - Serilog.Sinks.Console
+    - Serilog.Sinks.File
+  MinimumLevel: Debug
+  Override:
+    System: Warning
+  WriteTo:
+    - Name: Console
+      Args:
+        restrictedToMinimumLevel: Debug
+    - Name: File
+      Args:
+        path: logs/log.log
+        rollingInterval: Day
+        restrictedToMinimumLevel: Warning
+MqttInfo:
+  Server: localhost # The IP address or DNS name of your server goes here.
+  Devices: # This section is required.
+      # The name of your device. Used in Telegram messages by the bot.
+    - DeviceName: KitchenLight
+      # The topic of your device.
+      Topic: kitchenlight
+      TelegramCommands:
+        # The command for the bot to toggle the power of this device. Must be declared using BotFather.
+        TogglePower: /kitchenlight_toggle
+        # The command to show the status of the device, whether it's turned on or off. Must be declared using BotFather.
+        Status: /kitchenlight_status
+Telegram:
+  BotToken: # A unique Telegram bot identifier provided by the BotFather.
+  AllowedIds: # The IDs of users that are permitted to use the bot. This section is required.
+    - 12345678
+    - 87654321
