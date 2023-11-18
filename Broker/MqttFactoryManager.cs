@@ -24,16 +24,15 @@ public static class MqttFactoryManager {
     var deviceInfo = messageParams.Config.GetDeviceByCommand(command);
     if (deviceInfo is null) return;
 
-    using var mqttClient = mqttFactory.CreateMqttClient();
+    var mqttClient = mqttFactory.CreateMqttClient();
     await mqttClient.ConnectAsync(messageParams.Config.GenerateMqttConnectionOptions(), CancellationToken.None);
+
+    Task receiveTask = mqttClient.ReceiveMessageAndDisconnectAsync(messageParams, deviceInfo.Topic);
     Task publishTask = mqttClient.PublishAsync(
       deviceInfo.GenerateCommandMessage(
         deviceInfo.GenerateCommandBasedMqttMessageData(command)
       )
     );
-
-    Task receiveTask = mqttClient.ReceiveMessageAndDisconnectAsync(messageParams);
-
     Task.WaitAll(publishTask, receiveTask);
   }
 }

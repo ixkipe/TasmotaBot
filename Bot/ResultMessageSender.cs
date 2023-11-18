@@ -1,5 +1,6 @@
 using MiscellaneousGibs.TasmotaBot.Helpers;
 using MiscellaneousGibs.TasmotaBot.Models;
+using Serilog;
 using Telegram.Bot;
 
 namespace MiscellaneousGibs.TasmotaBot;

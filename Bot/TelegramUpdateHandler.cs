@@ -20,15 +20,15 @@ public class TelegramUpdateHandler : ITelegramUpdateHandler
     _mqttFactory = mqttFactory;
   }
 
-  public async Task HandleUpdateAsync(ITelegramBotClient bot, Update update, CancellationToken cancellationToken)
+  public Task HandleUpdateAsync(ITelegramBotClient bot, Update update, CancellationToken cancellationToken)
   {
-    if (update.Type is not Telegram.Bot.Types.Enums.UpdateType.Message) return;
-    if (string.IsNullOrEmpty(update.Message.Text)) return;
+    if (update.Type is not Telegram.Bot.Types.Enums.UpdateType.Message) return Task.CompletedTask;
+    if (string.IsNullOrEmpty(update.Message.Text)) return Task.CompletedTask;
 
     bool idIsAllowed = _config.IsTelegramIdAllowed(update.Message.From.Id);
 
     if (idIsAllowed) {
-      await _mqttFactory.CreateAndManageMqttClient(new Models.BotMessageParams(bot, update, _config));
+      return _mqttFactory.CreateAndManageMqttClient(new Models.BotMessageParams(bot, update, _config));
     }
     else if (!idIsAllowed && update.Message.Text[0] == '/') {
       Log.Warning(
@@ -38,6 +38,8 @@ public class TelegramUpdateHandler : ITelegramUpdateHandler
         update.Message.Text
       );
     }
+
+    return Task.CompletedTask;
   }
 
   public Task HandlePollingErrorAsync(ITelegramBotClient bot, Exception exception, CancellationToken cancellationToken)

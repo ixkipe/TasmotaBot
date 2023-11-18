@@ -1,4 +1,5 @@
 using MiscellaneousGibs.TasmotaBot.Models;
+using Serilog;
 
 namespace MiscellaneousGibs.TasmotaBot.Helpers;
 

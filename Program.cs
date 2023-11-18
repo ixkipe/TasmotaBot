@@ -16,6 +16,7 @@ IHost host = Host.CreateDefaultBuilder(args)
 			implementationFactory: s => new TelegramBotClient(s.GetRequiredService<IConfiguration>()["Telegram:BotToken"])
 		);
 		services.AddSingleton(implementationInstance: new MqttFactory());
+		services.AddSingleton<ITelegramUpdateHandler, TelegramUpdateHandler>();
 		services.AddHostedService<Worker>();
 	})
 	// .UseSystemd() // for prod only

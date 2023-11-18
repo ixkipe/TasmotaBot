@@ -6,9 +6,12 @@ namespace MiscellaneousGibs.TasmotaBot.Helpers;
 #warning Missing docs
 public static class MqttMessageDataGenerator {
   public static MqttMessageData GenerateCommandBasedMqttMessageData(this DeviceInfo deviceInfo, string command) {
-    return command == deviceInfo.TelegramCommands.TogglePower ?
-      new MqttMessageData(TasmotaCommands.TogglePower, TasmotaPayloads.PowerTogglePayload)
+    return new MqttMessageData(
+      TasmotaCommands.PowerState,
+      command == deviceInfo.TelegramCommands.TogglePower ?
+      TasmotaPayloads.PowerTogglePayload
       :
-      new MqttMessageData(TasmotaCommands.RequestState, string.Empty);
+      string.Empty
+    );
   }
 }

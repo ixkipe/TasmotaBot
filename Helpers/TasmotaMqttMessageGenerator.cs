@@ -1,5 +1,6 @@
 using MiscellaneousGibs.TasmotaBot.Models;
 using MQTTnet;
+using Serilog;
 
 namespace MiscellaneousGibs.TasmotaBot.Helpers;
 
