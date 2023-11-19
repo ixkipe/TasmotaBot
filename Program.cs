@@ -19,7 +19,7 @@ IHost host = Host.CreateDefaultBuilder(args)
 		services.AddSingleton<ITelegramUpdateHandler, TelegramUpdateHandler>();
 		services.AddHostedService<Worker>();
 	})
-	// .UseSystemd() // for prod only
+	.UseSystemd() // for prod only
 	.Build();
 
 host.Run();
