@@ -5,12 +5,14 @@ using Telegram.Bot;
 
 #warning Missing docs
 
-IHost host = Host.CreateDefaultBuilder(args)
+IHostEnvironment environment = null;
+
+IHostBuilder hostBuilder = Host.CreateDefaultBuilder(args)
 	.ConfigureAppConfiguration(builder => {
 		builder.AddYamlFile("appsettings.yml", optional: false);
 	})
 	.UseSerilog((context, config) => config.ReadFrom.Configuration(context.Configuration))
-	.ConfigureServices(services =>
+	.ConfigureServices((builder, services) =>
 	{
 		services.AddSingleton<ITelegramBotClient, TelegramBotClient>(
 			implementationFactory: s => new TelegramBotClient(s.GetRequiredService<IConfiguration>()["Telegram:BotToken"])
@@ -18,8 +20,14 @@ IHost host = Host.CreateDefaultBuilder(args)
 		services.AddSingleton(implementationInstance: new MqttFactory());
 		services.AddSingleton<ITelegramUpdateHandler, TelegramUpdateHandler>();
 		services.AddHostedService<Worker>();
-	})
-	.UseSystemd() // for prod only
-	.Build();
+		environment = builder.HostingEnvironment;
+	});
 
-host.Run();
+// published application is run via systemd
+// while debugging/running in development mode, no systemd support is required
+if (environment.IsProduction()) {
+	hostBuilder = hostBuilder.UseSystemd();
+}
+
+var app = hostBuilder.Build();
+app.Run();

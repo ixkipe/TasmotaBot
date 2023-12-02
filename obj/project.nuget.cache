@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "MWFriOtBTQlEjRu0ScwFGAdb+G6tQf/stiEmfZfdLELgsWRLwabCRusj1WJBrJryGEFJtAV73qIqtuQSeTrkKg==",
+  "dgSpecHash": "DwJXFv24J4BFtWEfdWgrdZNtmfiiX6fUD40NBPjKAGf4XZJWEy4ZZg2/lT7KBj/WnC5ZvptB4A3y3/vQPS5rjQ==",
   "success": true,
   "projectFilePath": "/home/vistor/Documents/dotnet/TasmotaBot/TasmotaBot.csproj",
   "expectedPackageFiles": [
@@ -46,11 +46,15 @@
     "/home/vistor/.nuget/packages/serilog.sinks.file/5.0.0/serilog.sinks.file.5.0.0.nupkg.sha512",
     "/home/vistor/.nuget/packages/system.diagnostics.diagnosticsource/8.0.0/system.diagnostics.diagnosticsource.8.0.0.nupkg.sha512",
     "/home/vistor/.nuget/packages/system.diagnostics.eventlog/7.0.0/system.diagnostics.eventlog.7.0.0.nupkg.sha512",
+    "/home/vistor/.nuget/packages/system.runtime.compilerservices.unsafe/6.0.0/system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
     "/home/vistor/.nuget/packages/system.text.encodings.web/8.0.0/system.text.encodings.web.8.0.0.nupkg.sha512",
     "/home/vistor/.nuget/packages/system.text.json/8.0.0/system.text.json.8.0.0.nupkg.sha512",
     "/home/vistor/.nuget/packages/telegram.bot/19.0.0/telegram.bot.19.0.0.nupkg.sha512",
     "/home/vistor/.nuget/packages/yamldotnet/13.0.1/yamldotnet.13.0.1.nupkg.sha512",
-    "/home/vistor/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.13/microsoft.aspnetcore.app.ref.7.0.13.nupkg.sha512"
+    "/home/vistor/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.13/microsoft.aspnetcore.app.ref.7.0.13.nupkg.sha512",
+    "/home/vistor/.nuget/packages/microsoft.netcore.app.ref/6.0.24/microsoft.netcore.app.ref.6.0.24.nupkg.sha512",
+    "/home/vistor/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.24/microsoft.aspnetcore.app.ref.6.0.24.nupkg.sha512",
+    "/home/vistor/.nuget/packages/microsoft.netcore.app.host.linux-x64/6.0.24/microsoft.netcore.app.host.linux-x64.6.0.24.nupkg.sha512"
   ],
   "logs": []
 }

@@ -51,3 +51,7 @@ The list must be in the object array format; each object bust have the following
     These commands should be declared using BotFather.
 4. Provide the authentication token for your Telegram bot in `Telegram:BotToken`.
 5. List the IDs of the users who are permitted to use the bot in `Telegram:AllowedIds`.
+
+## F.A.Q.
+
+Q/A will be added upon their emergence and resolution.

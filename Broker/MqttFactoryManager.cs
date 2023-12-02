@@ -2,6 +2,7 @@ using MiscellaneousGibs.TasmotaBot.Helpers;
 using MiscellaneousGibs.TasmotaBot.Logging;
 using MiscellaneousGibs.TasmotaBot.Models;
 using MQTTnet;
+using MQTTnet.Exceptions;
 using Serilog;
 
 namespace MiscellaneousGibs.TasmotaBot.Broker;
@@ -32,7 +33,17 @@ public static class MqttFactoryManager {
 
     // Create MQTT client, connect to the Mosquitto server specified in the config file.
     var mqttClient = mqttFactory.CreateMqttClient();
-    await mqttClient.ConnectAsync(messageParams.Config.GenerateMqttConnectionOptions(), CancellationToken.None);
+    try {
+      await mqttClient.ConnectAsync(messageParams.Config.GenerateMqttConnectionOptions(), CancellationToken.None);
+    }
+    catch (MqttCommunicationException e) {
+      Log.Error(e.ToString());
+      #warning also message the user that an error has occurred with e.Message
+      return;
+    }
+    finally {
+      mqttClient.Dispose();
+    }
 
     // Subscribe to the power state topic before executing the command.
     Task receiveTask = mqttClient.ReceiveMessageAndDisconnectAsync(messageParams, deviceInfo.Topic);
